@@ -13,4 +13,4 @@ install_dev:
 
 .PHONY: test
 test:
-	pytest tests/
+	pytest --cov tests/

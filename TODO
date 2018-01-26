@@ -1,2 +1,4 @@
 * test for pytest plugin
-* other type like set
+* other type like set, float, tuple, etc.
+* Optional[int|bool|str|...]
+* check thread safe

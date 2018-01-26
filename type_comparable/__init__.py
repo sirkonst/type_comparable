@@ -1,5 +1,5 @@
 from collections import UserDict, UserList
-from typing import Any
+from typing import Any, Optional
 
 from wrapt import ObjectProxy
 
@@ -12,10 +12,28 @@ class TypeComparableObject:
         if other is Any:
             return True
 
+        if other is Optional:
+            return True
+
         if isinstance(other, type):
             return isinstance(self, other)
 
         return super().__eq__(other)
+
+
+class TypeComparableNone(TypeComparableObject, ObjectProxy):
+
+    def __eq__(self, other):
+        if other is None:
+            return True
+
+        if other is Optional:
+            return True
+
+        if isinstance(other, TypeComparableNone):
+            return True
+
+        return False
 
 
 class TypeComparableDict(TypeComparableObject, UserDict):
@@ -58,7 +76,7 @@ __cache = {}
 
 def make_type_comparable(obj):
     if obj is None:
-        return obj
+        return TypeComparableNone(obj)
     elif isinstance(obj, TypeComparableObject):
         return obj
     elif isinstance(obj, dict):
