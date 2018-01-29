@@ -13,4 +13,4 @@ install_dev:
 
 .PHONY: test
 test:
-	pytest --cov tests/
+	pytest --cov=type_comparable --cov-report term --cov-report html tests/
