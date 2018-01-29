@@ -15,12 +15,22 @@ from type_comparable import make_type_comparable
     'date_create': '2020-01-25T17:31:33.910803',
     'important_data': 'important data',
     'other_data': 'other data',
+    'inner_data': {
+        'field a': 'value a',
+        'field d': 'value b'
+    },
+    'line': [1, 'some text', 3]
 }
 >> assert make_type_comparable(response) == {
     'id': int,  # <-- will compare by type int
     'date_create': str, # < -- will compare by type str
     'important_data': 'important data',  # <-- exact match as is
-    'other_data': Any, # <-- allow any data
+    'other_data': Any, # <-- allow any data,
+    'inner_date': {  # <-- also work with nested dictionaries 
+        'field a': str,  
+        'field b': 'value b'
+    }
+    'line': [int, Any, 3]  # <- check elements in array
 }
 
 # if you don't want wrap left variable (response) if can wrap right:
@@ -39,6 +49,7 @@ Comparable types (which can be passed to `make_type_comparable()`):
 * `str`
 * `list`
 * `dict`
+* other
 
 Types for comparison:
 * all python builtin (`int`, `str`, `bool`, `list`, `dict`, etc.)
@@ -52,7 +63,7 @@ manually before use in product)
 Know issues
 ===========
 
-Wrapper `None` is not `None` :-(
+Wrapped `None` is not `None` :-(
 
 ```python
 >> make_type_comparable(None) is None
@@ -85,7 +96,7 @@ From local:
 Development
 ===========
 
-Prepare and activate virtual enviroment like:
+Prepare and activate virtual environment like:
 
     $ python3 -m venv .env
     # for bash
