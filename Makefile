@@ -1,3 +1,6 @@
+# interpreter version (ex.: 3.6) or use current
+PYTHON := $(PYTHON)
+
 all: build_dist
 
 
@@ -13,4 +16,8 @@ install_dev:
 
 .PHONY: test
 test:
-	pytest --cov=type_comparable --cov-report term --cov-report html tests/
+	if [ -z "$(PYTHON)" ]; then \
+	    tox --recreate --skip-missing-interpreters; \
+	else \
+	    tox --recreate -e py$(PYTHON); \
+	fi;

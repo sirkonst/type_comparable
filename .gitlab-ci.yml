@@ -1,0 +1,39 @@
+stages:
+  - test
+
+
+test_3.3:
+  stage: test
+  image: python:3.3
+  before_script:
+    - pip install tox
+  script:
+    - make test PYTHON=3.3
+  coverage: /\d+\%\s*$/
+
+test_3.4:
+  stage: test
+  image: python:3.4
+  before_script:
+    - pip install tox
+  script:
+    - make test PYTHON=3.4
+  coverage: /\d+\%\s*$/
+
+test_3.5:
+  stage: test
+  image: python:3.5
+  before_script:
+    - pip install tox
+  script:
+    - make test PYTHON=3.5
+  coverage: /\d+\%\s*$/
+
+test_3.6:
+  stage: test
+  image: python:3.6
+  before_script:
+    - pip install tox
+  script:
+    - make test PYTHON=3.6
+  coverage: /\d+\%\s*$/

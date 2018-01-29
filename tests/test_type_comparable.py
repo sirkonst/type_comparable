@@ -94,7 +94,7 @@ class TestSimple:
         assert isinstance(obj, UserList)
         assert_left_and_rigth(obj, value, '==')
         assert_left_and_rigth(obj, compare_with, '==')
-        assert_left_and_rigth(obj, [*value, 0], '!=')
+        assert_left_and_rigth(obj, value + [0], '!=')
         assert_left_and_rigth(obj, None, '!=')
         assert obj == make_type_comparable(value)
 
@@ -107,9 +107,9 @@ class TestSimple:
         assert isinstance(obj, UserDict)
         assert_left_and_rigth(obj, value, '==')
         assert_left_and_rigth(obj, compare_with, '==')
-        assert_left_and_rigth(
-            obj, {**value, 'other_key': 'other_value'}, '!='
-        )
+        _expect = value.copy()
+        _expect.update({'other_key': 'other_value'})
+        assert_left_and_rigth(obj, _expect, '!=')
         assert obj != None
         assert_left_and_rigth(obj, None, '!=')
         assert obj == make_type_comparable(value)
@@ -161,10 +161,12 @@ class TestDictValues:
         assert_left_and_rigth(obj['bool'], field_bool, '==')
         assert_left_and_rigth(obj['dict'], field_dict, '==')
         assert_left_and_rigth(obj['list'], field_list, '==')
-        assert_left_and_rigth(
-            obj, {**expect, 'additional key': 'changed'}, '!='
-        )
-        assert_left_and_rigth(obj, {**expect, 'new key': 'new value'}, '!=')
+        _expect = expect.copy()
+        _expect.update({'additional key': 'changed'})
+        assert_left_and_rigth(obj, _expect, '!=')
+        _expect = expect.copy()
+        _expect.update({'new key': 'new value'})
+        assert_left_and_rigth(obj, _expect, '!=')
 
     @pytest.mark.parametrize('field_int', int_comparable_types)
     @pytest.mark.parametrize('field_str', str_comparable_types)
@@ -193,29 +195,24 @@ class TestDictValues:
         assert_left_and_rigth(obj['dict']['bool'], field_bool, '==')
         assert_left_and_rigth(obj['dict']['dict'], field_dict, '==')
         assert_left_and_rigth(obj['dict']['list'], field_list, '==')
-        assert_left_and_rigth(
-            obj['dict'], {**expect, 'additional key': 'changed'}, '!='
-        )
-        assert_left_and_rigth(
-            obj['dict'], {**expect, 'new key': 'new value'}, '!='
-        )
+        _expect = expect.copy()
+        _expect.update({'additional key': 'changed'})
+        assert_left_and_rigth(obj['dict'], _expect, '!=')
+        _expect = expect.copy()
+        _expect.update({'new key': 'new value'})
+        assert_left_and_rigth(obj['dict'], _expect, '!=')
 
-        _expect = {
-            **expect,
-            'dict': {
-                **expect['dict'],
-                'additional key': 'changed'
-            }
-        }
+        _expect = expect.copy()
+        _expect_dict = expect['dict'].copy()
+        _expect_dict.update({'additional key': 'changed'})
+        _expect.update({'dict': _expect_dict})
         assert_left_and_rigth(obj, _expect, '!=')
         assert_left_and_rigth(obj['dict'], _expect['dict'], '!=')
-        _expect = {
-            **expect,
-            'dict': {
-                **expect['dict'],
-                'new key': 'new value'
-            }
-        }
+
+        _expect = expect.copy()
+        _expect_dict = expect['dict']
+        _expect_dict.update({'new key': 'new value'})
+        _expect.update({'dict': _expect_dict})
         assert_left_and_rigth(obj['dict'], _expect['dict'], '!=')
 
 
@@ -257,10 +254,10 @@ class TestListValues:
         assert_left_and_rigth(obj[2], field_bool, '==')
         assert_left_and_rigth(obj[4], field_dict, '==')
         assert_left_and_rigth(obj[5], field_list, '==')
-        _expect = [*expect]
+        _expect = expect.copy()
         _expect[6] = 'changed'
         assert_left_and_rigth(obj,_expect, '!=')
-        assert_left_and_rigth(obj, [*expect, 'new value'], '!=')
+        assert_left_and_rigth(obj, expect + ['new value'], '!=')
 
     @pytest.mark.parametrize('field_int', int_comparable_types)
     @pytest.mark.parametrize('field_str', str_comparable_types)
@@ -288,7 +285,7 @@ class TestListValues:
         assert_left_and_rigth(obj[7][2], field_bool, '==')
         assert_left_and_rigth(obj[7][4], field_dict, '==')
         assert_left_and_rigth(obj[7][5], field_list, '==')
-        _expect = [*expect]
+        _expect = expect.copy()
         _expect[7][6] = 'changed'
         assert_left_and_rigth(obj, _expect, '!=')
-        assert_left_and_rigth(obj, [*expect, 'new value'], '!=')
+        assert_left_and_rigth(obj, expect + ['new value'], '!=')
