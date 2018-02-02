@@ -1,5 +1,6 @@
 stages:
   - test
+  - release
 
 
 test_3.3:
@@ -37,3 +38,17 @@ test_3.6:
   script:
     - make test PYTHON=3.6
   coverage: /\d+\%\s*$/
+
+
+upload_to_pypi:
+  stage: release
+  image: python
+  before_script:
+    - pip install setuptools wheel twine -U
+  script:
+    - make build_dist
+    - make upload
+  when: manual
+  only:
+    - master
+    - develop
