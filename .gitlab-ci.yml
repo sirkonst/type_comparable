@@ -52,3 +52,6 @@ upload_to_pypi:
   only:
     - master
     - develop
+  environment:
+    name: PyPi
+    url: https://pypi.python.org/pypi/type_comparable
