@@ -44,17 +44,19 @@ Support types
 =============
 
 Comparable types (which can be passed to `make_type_comparable()`):
-* `int`
-* `bool`
-* `str`
-* `list`
-* `dict`
-* other
+
+- `int`
+- `bool`
+- `str`
+- `list`
+- `dict`
+- other
 
 Types for comparison:
-* all python builtin (`int`, `str`, `bool`, `list`, `dict`, etc.)
-* `object` and `typing.Any` - mean any type but not `None`
-* `typing.Optional` - mean any type and `None`. `Optional[int]` now not supported
+
+- all python builtin (`int`, `str`, `bool`, `list`, `dict`, etc.)
+- `object` and `typing.Any` - mean any type but not `None`
+- `typing.Optional` - mean any type and `None`. `Optional[int]` now not supported
 
 Also you can try to use with your custom types but without guaranteed (verify 
 manually before use in product)
@@ -119,7 +121,7 @@ Update pre-install dependencies:
 
 Install:
 
-.. code-block:: python
+.. code-block:: bash
 
     $ make install_dev
     # or
@@ -127,7 +129,7 @@ Install:
 
 Run tests:
 
-.. code-block:: python
+.. code-block:: bash
 
     $ make test
     # or 
