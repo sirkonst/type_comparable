@@ -2,42 +2,34 @@ stages:
   - test
   - release
 
+.test_template: &test_template
+  stage: test
+  image: python:$PYTHON_VERSION
+  before_script:
+    - pip install tox
+  script:
+    - make test PYTHON=$PYTHON_VERSION
+  coverage: /\d+\%\s*$/
 
 test_3.3:
-  stage: test
-  image: python:3.3
-  before_script:
-    - pip install tox
-  script:
-    - make test PYTHON=3.3
-  coverage: /\d+\%\s*$/
+  <<: *test_template
+  variables:
+    PYTHON_VERSION: "3.3"
 
 test_3.4:
-  stage: test
-  image: python:3.4
-  before_script:
-    - pip install tox
-  script:
-    - make test PYTHON=3.4
-  coverage: /\d+\%\s*$/
+  <<: *test_template
+  variables:
+    PYTHON_VERSION: "3.4"
 
 test_3.5:
-  stage: test
-  image: python:3.5
-  before_script:
-    - pip install tox
-  script:
-    - make test PYTHON=3.5
-  coverage: /\d+\%\s*$/
+  <<: *test_template
+  variables:
+    PYTHON_VERSION: "3.5"
 
 test_3.6:
-  stage: test
-  image: python:3.6
-  before_script:
-    - pip install tox
-  script:
-    - make test PYTHON=3.6
-  coverage: /\d+\%\s*$/
+  <<: *test_template
+  variables:
+    PYTHON_VERSION: "3.6"
 
 
 upload_to_pypi:
