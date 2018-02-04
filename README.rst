@@ -6,6 +6,7 @@ Module allows to compare variables not only by value but by type too.
 Quick example:
 
 .. code-block:: python
+
     from typing import Any
 
     from type_comparable import make_type_comparable
@@ -65,6 +66,7 @@ Know issues
 Wrapped `None` is not `None` :-(
 
 .. code-block:: python
+
     >> make_type_comparable(None) is None
     False
 
@@ -79,12 +81,14 @@ Install
 From PyPi:
 
 .. code-block:: bash
+
     $ pip install type_comparable
 
 
 From local:
 
 .. code-block:: bash
+
     # update setuptools
     $ pip install 'setuptools >= 30.4'
     # do install
@@ -99,6 +103,7 @@ Development
 Prepare and activate virtual environment like:
 
 .. code-block:: bash
+
     $ python3 -m venv .env
     # for bash
     $ source .env/bin/activate
@@ -108,12 +113,14 @@ Prepare and activate virtual environment like:
 Update pre-install dependencies:
 
 .. code-block:: bash
+
     $ pip install 'setuptools >= 30.4'
 
 
 Install:
 
 .. code-block:: python
+
     $ make install_dev
     # or
     $ pip install --editable .[develop]
@@ -121,6 +128,7 @@ Install:
 Run tests:
 
 .. code-block:: python
+
     $ make test
     # or 
     $ pytest tests/
