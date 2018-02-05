@@ -22,6 +22,7 @@ try:
     branch = check_output(
         ['git', 'rev-parse', '--abbrev-ref', 'HEAD'], stderr=STDOUT
     ).strip().decode('utf-8')
+    print('branch=', branch)
     if branch != 'master':
         dev = 'dev{:%Y%m%d}'.format(datetime.utcnow().date())
 except Exception as e:
