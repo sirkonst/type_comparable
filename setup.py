@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import os
 from datetime import datetime
 from subprocess import check_output, STDOUT
 from sys import stderr
@@ -19,11 +20,12 @@ except Exception as e:
     )
 
 try:
-    branch = check_output(
-        ['git', 'rev-parse', '--abbrev-ref', 'HEAD'], stderr=STDOUT
-    ).strip().decode('utf-8')
-    if branch != 'master':
-        dev = 'dev{:%Y%m%d}'.format(datetime.utcnow().date())
+    if os.environ.get('CI_COMMIT_REF_NAME') != 'master':
+        branch = check_output(
+            ['git', 'rev-parse', '--abbrev-ref', 'HEAD'], stderr=STDOUT
+        ).strip().decode('utf-8')
+        if branch != 'master':
+            dev = 'dev{:%Y%m%d}'.format(datetime.utcnow().date())
 except Exception as e:
     print(
         '[!] Can not get git branch: {}'.format(e), file=stderr
