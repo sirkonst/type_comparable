@@ -6,6 +6,7 @@ Module allows to compare variables not only by value but by type too.
 Quick example:
 
 .. code-block:: python
+
     from typing import Any
 
     from type_comparable import make_type_comparable
@@ -43,17 +44,19 @@ Support types
 =============
 
 Comparable types (which can be passed to `make_type_comparable()`):
-* `int`
-* `bool`
-* `str`
-* `list`
-* `dict`
-* other
+
+- `int`
+- `bool`
+- `str`
+- `list`
+- `dict`
+- other
 
 Types for comparison:
-* all python builtin (`int`, `str`, `bool`, `list`, `dict`, etc.)
-* `object` and `typing.Any` - mean any type but not `None`
-* `typing.Optional` - mean any type and `None`. `Optional[int]` now not supported
+
+- all python builtin (`int`, `str`, `bool`, `list`, `dict`, etc.)
+- `object` and `typing.Any` - mean any type but not `None`
+- `typing.Optional` - mean any type and `None`. `Optional[int]` now not supported
 
 Also you can try to use with your custom types but without guaranteed (verify 
 manually before use in product)
@@ -65,6 +68,7 @@ Know issues
 Wrapped `None` is not `None` :-(
 
 .. code-block:: python
+
     >> make_type_comparable(None) is None
     False
 
@@ -79,12 +83,14 @@ Install
 From PyPi:
 
 .. code-block:: bash
+
     $ pip install type_comparable
 
 
 From local:
 
 .. code-block:: bash
+
     # update setuptools
     $ pip install 'setuptools >= 30.4'
     # do install
@@ -99,6 +105,7 @@ Development
 Prepare and activate virtual environment like:
 
 .. code-block:: bash
+
     $ python3 -m venv .env
     # for bash
     $ source .env/bin/activate
@@ -108,19 +115,22 @@ Prepare and activate virtual environment like:
 Update pre-install dependencies:
 
 .. code-block:: bash
+
     $ pip install 'setuptools >= 30.4'
 
 
 Install:
 
-.. code-block:: python
+.. code-block:: bash
+
     $ make install_dev
     # or
     $ pip install --editable .[develop]
 
 Run tests:
 
-.. code-block:: python
+.. code-block:: bash
+
     $ make test
     # or 
     $ pytest tests/
