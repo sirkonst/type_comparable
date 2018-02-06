@@ -1,4 +1,5 @@
 [run]
+source = type_comparable
 branch = True
 omit =
     test_*

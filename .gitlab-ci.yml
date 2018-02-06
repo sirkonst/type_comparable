@@ -10,6 +10,9 @@ stages:
   script:
     - make test PYTHON=$PYTHON_VERSION
   coverage: /\d+\%\s*$/
+  artifacts:
+    paths:
+      - htmlcov/
 
 test_3.3:
   <<: *test_template
