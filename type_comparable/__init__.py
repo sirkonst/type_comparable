@@ -36,6 +36,19 @@ class TypeComparableNone(TypeComparableObject, ObjectProxy):
         return False
 
 
+class TypeComparableType(TypeComparableObject):
+    __slots__ = 'type_'
+
+    def __init__(self, type_):
+        self.type_ = type_
+
+    def __eq__(self, other):
+        if super().__eq__(other):
+            return True
+
+        return isinstance(other, self.type_)
+
+
 class TypeComparableDict(TypeComparableObject, UserDict):
 
     def __eq__(self, other):
@@ -83,6 +96,12 @@ def make_type_comparable(obj):
         wrapper_cls = TypeComparableDict
     elif isinstance(obj, list):
         wrapper_cls = TypeComparableList
+    elif (
+        isinstance(obj, type)
+        or obj == Any
+        or obj == Optional
+    ):
+        wrapper_cls = TypeComparableType
     else:
         cls = type(obj)
         wrapper_name = 'TypeComparable[{}]'.format(cls.__name__)

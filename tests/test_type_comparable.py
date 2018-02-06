@@ -57,6 +57,9 @@ class TestSimple:
         assert_left_and_rigth(obj, value + 1, '!=')
         assert_left_and_rigth(obj, None, '!=')
         assert obj == make_type_comparable(value)
+        assert_left_and_rigth(
+            value, make_type_comparable(compare_with), '=='
+        )
 
     @pytest.mark.parametrize('value', [True, False])
     @pytest.mark.parametrize('compare_with', bool_comparable_types)
@@ -71,6 +74,9 @@ class TestSimple:
         assert_left_and_rigth(obj, not value, '!=')
         assert_left_and_rigth(obj, None, '!=')
         assert obj == make_type_comparable(value)
+        assert_left_and_rigth(
+            value, make_type_comparable(compare_with), '=='
+        )
 
     @pytest.mark.parametrize('value', ['', 'a', 'aaaaaaaaaaaaaaaaaaaaaaaaaaa'])
     @pytest.mark.parametrize('compare_with', str_comparable_types)
@@ -84,6 +90,9 @@ class TestSimple:
         assert_left_and_rigth(obj, '{}-other'.format(value), '!=')
         assert_left_and_rigth(obj, None, '!=')
         assert obj == make_type_comparable(value)
+        assert_left_and_rigth(
+            value, make_type_comparable(compare_with), '=='
+        )
 
     @pytest.mark.parametrize('value', [[], [1, ], [1, 2, 3]])
     @pytest.mark.parametrize('compare_with', list_comparable_types)
@@ -97,6 +106,9 @@ class TestSimple:
         assert_left_and_rigth(obj, value + [0], '!=')
         assert_left_and_rigth(obj, None, '!=')
         assert obj == make_type_comparable(value)
+        assert_left_and_rigth(
+            value, make_type_comparable(compare_with), '=='
+        )
 
     @pytest.mark.parametrize('value', [{}, {'a': 'A'}])
     @pytest.mark.parametrize('compare_with', dict_comparable_types)
@@ -113,6 +125,9 @@ class TestSimple:
         assert obj != None
         assert_left_and_rigth(obj, None, '!=')
         assert obj == make_type_comparable(value)
+        assert_left_and_rigth(
+            value, make_type_comparable(compare_with), '=='
+        )
 
 
 class TestDictValues:
