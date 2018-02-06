@@ -8,7 +8,7 @@ from sys import stderr
 from setuptools import setup
 
 # -- versioning
-major, minor, build, dev = 0, 0, 0, ''
+major, minor, build, dev = 0, 1, 0, ''
 
 try:
     build = check_output(
