@@ -50,3 +50,4 @@ upload_to_pypi:
   environment:
     name: PyPi
     url: https://pypi.python.org/pypi/type_comparable
+  dependencies: []  # don't fetch artifacts
