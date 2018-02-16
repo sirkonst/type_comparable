@@ -1,3 +1,4 @@
+import sys
 from subprocess import check_output, STDOUT, CalledProcessError
 
 
@@ -7,7 +8,7 @@ def _get_git_version():
             'git describe --tags', shell=True, stderr=STDOUT
         ).strip().decode('utf-8')
     except CalledProcessError as e:
-        print('[!] Can not detect version in git repo: ', e)
+        print('[!] Can not detect version in git repo: ', e, file=sys.stderr)
         return 0, 0, 0, None, None
     else:
         if '-' in tag_describe:
