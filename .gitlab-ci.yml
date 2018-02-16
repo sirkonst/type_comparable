@@ -46,7 +46,8 @@ upload_to_pypi:
   when: manual
   only:
     - master
-    - develop
+    - /^release/.+$/
+    - tags
   environment:
     name: PyPi
     url: https://pypi.python.org/pypi/type_comparable
