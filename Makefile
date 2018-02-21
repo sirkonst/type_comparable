@@ -6,12 +6,12 @@ all: test
 
 .PHONY: install
 install:
-	pip install --no-cache-dir .
+	pip install .
 
 
 .PHONY: install_dev
 install_dev:
-	pip install --no-cache-dir --editable .[develop]
+	pip install --editable .[develop]
 
 
 .PHONY: test
