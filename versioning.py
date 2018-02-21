@@ -17,11 +17,15 @@ def _get_git_version():
             tag, describe = tag_describe, None
 
     segs = tag.split('.')
-    assert len(segs) <= 3
+    assert 1 < len(segs) <= 3
 
     major = int(segs[0])
-    minor = len(segs) == 2 and int(segs[1]) or None
-    patch = len(segs) == 3 and int(segs[2]) or None
+    if len(segs) == 2:
+        minor = int(segs[1])
+        patch = None
+    elif len(segs) == 3:
+        minor = int(segs[1])
+        patch = int(segs[2])
 
     if describe:
         dev, localversion = describe.split('-', 1)
