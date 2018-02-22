@@ -36,7 +36,7 @@ def _get_git_version():
     return major, minor, patch, dev, localversion
 
 
-def version(major=0, minor=None, patch=None, localversion=None):
+def version(major=0, minor=None, patch=None, localversion='auto'):
     repo_version = _get_git_version()
     is_dev = False
 
@@ -72,10 +72,10 @@ def version(major=0, minor=None, patch=None, localversion=None):
         is_dev = True
         v = '{}.post1.dev{}'.format(v, repo_version[3])
 
-    if localversion:
+    if localversion != 'auto' and localversion:
         v = '{}+{}'.format(v, localversion)
 
-    if is_dev and repo_version[3]:
+    if is_dev and repo_version[3] and localversion == 'auto':
         v = '{}+{}'.format(v, repo_version[4])
 
     return v

@@ -41,7 +41,7 @@ upload_to_pypi:
   before_script:
     - pip install setuptools wheel twine -U
   script:
-    - make build_dist
+    - make build_dist LOCALVERSION=
     - make upload
   when: manual
   only:
