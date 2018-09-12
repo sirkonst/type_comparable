@@ -14,11 +14,6 @@ stages:
     paths:
       - htmlcov/
 
-test_3.3:
-  <<: *test_template
-  variables:
-    PYTHON_VERSION: "3.3"
-
 test_3.4:
   <<: *test_template
   variables:
@@ -33,6 +28,11 @@ test_3.6:
   <<: *test_template
   variables:
     PYTHON_VERSION: "3.6"
+
+test_3.7:
+  <<: *test_template
+  variables:
+    PYTHON_VERSION: "3.7"
 
 
 upload_to_pypi:
@@ -50,5 +50,5 @@ upload_to_pypi:
     - tags
   environment:
     name: PyPi
-    url: https://pypi.python.org/pypi/type_comparable
+    url: https://pypi.org/project/type_comparable/
   dependencies: []  # don't fetch artifacts
