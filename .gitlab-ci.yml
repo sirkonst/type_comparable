@@ -34,6 +34,11 @@ test_3.7:
   variables:
     PYTHON_VERSION: "3.7"
 
+test_3.8:
+  <<: *test_template
+  variables:
+    PYTHON_VERSION: "3.8"
+
 
 upload_to_pypi:
   stage: release
