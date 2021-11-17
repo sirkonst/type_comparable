@@ -14,11 +14,6 @@ stages:
     paths:
       - htmlcov/
 
-test_3.4:
-  <<: *test_template
-  variables:
-    PYTHON_VERSION: "3.4"
-
 test_3.5:
   <<: *test_template
   variables:
@@ -38,6 +33,16 @@ test_3.8:
   <<: *test_template
   variables:
     PYTHON_VERSION: "3.8"
+
+test_3.9:
+  <<: *test_template
+  variables:
+    PYTHON_VERSION: "3.9"
+
+test_3.10:
+  <<: *test_template
+  variables:
+    PYTHON_VERSION: "3.10"
 
 
 upload_to_pypi:
