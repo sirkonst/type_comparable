@@ -1,6 +1,15 @@
 [run]
 source = type_comparable
 branch = True
+data_file = .coverage/data
 omit =
     test_*
     */tests/*
+
+[report]
+precision = 3
+fail_under = 86.82
+
+exclude_lines =
+    pragma: no cover
+    if __name__ == '__main__':

@@ -4,6 +4,7 @@ __pycache__
 /.coverage
 /.eggs
 /.env
+/.local
 /.pytest_cache
 /.tox
 /*.egg-info

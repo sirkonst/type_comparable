@@ -21,11 +21,10 @@ def assert_left_and_rigth(v1, v2, op):
         assert v1 != v2
         assert v2 != v1
     else:
-        assert False, 'invalid op ``'.format(op)
+        assert False, 'invalid op `{}`'.format(op)
 
 
 class TestSimple:
-    
     def test_none(self):
         assert_left_and_rigth(make_type_comparable(None), None, '==')
         assert make_type_comparable(None) == make_type_comparable(None)
@@ -57,9 +56,7 @@ class TestSimple:
         assert_left_and_rigth(obj, value + 1, '!=')
         assert_left_and_rigth(obj, None, '!=')
         assert obj == make_type_comparable(value)
-        assert_left_and_rigth(
-            value, make_type_comparable(compare_with), '=='
-        )
+        assert_left_and_rigth(value, make_type_comparable(compare_with), '==')
 
     @pytest.mark.parametrize('value', [True, False])
     @pytest.mark.parametrize('compare_with', bool_comparable_types)
@@ -74,9 +71,7 @@ class TestSimple:
         assert_left_and_rigth(obj, not value, '!=')
         assert_left_and_rigth(obj, None, '!=')
         assert obj == make_type_comparable(value)
-        assert_left_and_rigth(
-            value, make_type_comparable(compare_with), '=='
-        )
+        assert_left_and_rigth(value, make_type_comparable(compare_with), '==')
 
     @pytest.mark.parametrize('value', ['', 'a', 'aaaaaaaaaaaaaaaaaaaaaaaaaaa'])
     @pytest.mark.parametrize('compare_with', str_comparable_types)
@@ -90,11 +85,18 @@ class TestSimple:
         assert_left_and_rigth(obj, '{}-other'.format(value), '!=')
         assert_left_and_rigth(obj, None, '!=')
         assert obj == make_type_comparable(value)
-        assert_left_and_rigth(
-            value, make_type_comparable(compare_with), '=='
-        )
+        assert_left_and_rigth(value, make_type_comparable(compare_with), '==')
 
-    @pytest.mark.parametrize('value', [[], [1, ], [1, 2, 3]])
+    @pytest.mark.parametrize(
+        'value',
+        [
+            [],
+            [
+                1,
+            ],
+            [1, 2, 3],
+        ],
+    )
     @pytest.mark.parametrize('compare_with', list_comparable_types)
     def test_list(self, value, compare_with):
         assert value != compare_with
@@ -106,9 +108,7 @@ class TestSimple:
         assert_left_and_rigth(obj, value + [0], '!=')
         assert_left_and_rigth(obj, None, '!=')
         assert obj == make_type_comparable(value)
-        assert_left_and_rigth(
-            value, make_type_comparable(compare_with), '=='
-        )
+        assert_left_and_rigth(value, make_type_comparable(compare_with), '==')
 
     @pytest.mark.parametrize('value', [{}, {'a': 'A'}])
     @pytest.mark.parametrize('compare_with', dict_comparable_types)
@@ -122,16 +122,13 @@ class TestSimple:
         _expect = value.copy()
         _expect.update({'other_key': 'other_value'})
         assert_left_and_rigth(obj, _expect, '!=')
-        assert obj != None
+        assert obj is not None
         assert_left_and_rigth(obj, None, '!=')
         assert obj == make_type_comparable(value)
-        assert_left_and_rigth(
-            value, make_type_comparable(compare_with), '=='
-        )
+        assert_left_and_rigth(value, make_type_comparable(compare_with), '==')
 
 
 class TestDictValues:
-
     @staticmethod
     def make_simple_dict():
         return {
@@ -141,7 +138,7 @@ class TestDictValues:
             'none': None,
             'dict': {},
             'list': [],
-            'additional key': 'additional value'
+            'additional key': 'additional value',
         }
 
     @classmethod
@@ -232,16 +229,15 @@ class TestDictValues:
 
 
 class TestListValues:
-
     @staticmethod
     def make_simple_list():
         return [1, 'value str', True, None, {}, [], 'additional value']
 
     @classmethod
     def make_complex_list(cls):
-        l = cls.make_simple_list()
-        l.append(cls.make_simple_list())
-        return l
+        lst = cls.make_simple_list()
+        lst.append(cls.make_simple_list())
+        return lst
 
     @pytest.mark.parametrize('field_int', int_comparable_types)
     @pytest.mark.parametrize('field_str', str_comparable_types)
@@ -271,7 +267,7 @@ class TestListValues:
         assert_left_and_rigth(obj[5], field_list, '==')
         _expect = expect.copy()
         _expect[6] = 'changed'
-        assert_left_and_rigth(obj,_expect, '!=')
+        assert_left_and_rigth(obj, _expect, '!=')
         assert_left_and_rigth(obj, expect + ['new value'], '!=')
 
     @pytest.mark.parametrize('field_int', int_comparable_types)

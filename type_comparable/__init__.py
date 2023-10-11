@@ -7,7 +7,6 @@ __all__ = 'make_type_comparable', 'TypeComparableObject'
 
 
 class TypeComparableObject:
-
     def __eq__(self, other):
         if other is Any:
             return True
@@ -22,7 +21,6 @@ class TypeComparableObject:
 
 
 class TypeComparableNone(TypeComparableObject, ObjectProxy):
-
     def __eq__(self, other):
         if other is None:
             return True
@@ -50,7 +48,6 @@ class TypeComparableType(TypeComparableObject):
 
 
 class TypeComparableDict(TypeComparableObject, UserDict):
-
     def __eq__(self, other):
         if other is dict:
             return True
@@ -64,7 +61,6 @@ class TypeComparableDict(TypeComparableObject, UserDict):
 
 
 class TypeComparableList(TypeComparableObject, UserList):
-
     def __eq__(self, other):
         if other is list:
             return True
@@ -96,11 +92,7 @@ def make_type_comparable(obj):
         wrapper_cls = TypeComparableDict
     elif isinstance(obj, list):
         wrapper_cls = TypeComparableList
-    elif (
-        isinstance(obj, type)
-        or obj == Any
-        or obj == Optional
-    ):
+    elif isinstance(obj, type) or obj == Any or obj == Optional:
         wrapper_cls = TypeComparableType
     else:
         cls = type(obj)
@@ -111,9 +103,7 @@ def make_type_comparable(obj):
 
         wrapper_cls = __cache.get(cache_key)
         if not wrapper_cls:
-            wrapper_cls = type(
-                wrapper_name, (TypeComparableObject, cls), {}
-            )
+            wrapper_cls = type(wrapper_name, (TypeComparableObject, cls), {})
             __cache[cache_key] = wrapper_cls
 
     return wrapper_cls(obj)

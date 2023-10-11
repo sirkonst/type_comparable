@@ -19,7 +19,7 @@ test:
 	if [ -z "$(PYTHON)" ]; then \
 	    tox --recreate --skip-missing-interpreters; \
 	else \
-	    tox --recreate -e py$(PYTHON); \
+	    tox --recreate -e coverage_clean,py$(PYTHON); \
 	fi;
 
 
